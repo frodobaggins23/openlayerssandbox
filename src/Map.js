@@ -45,22 +45,24 @@ const DemoMap = () => {
         zoom: 18
       })
     });
-
-    //drawing points
-
-    map.addInteraction(draw);
-
-    //dragging pointers
-
-    map.addInteraction(modify);
   }, []);
+
+
 
   return (
     <div id="ol-map" style={styles}>
-      This is map
+      <button
+        onClick={() => {
+          map.removeInteraction(modify);
+          map.addInteraction(draw);
+        }}
+      >
+        Draw
+      </button>
       <button
         onClick={() => {
           map.removeInteraction(draw);
+          map.addInteraction(modify);
         }}
       >
         Drag
