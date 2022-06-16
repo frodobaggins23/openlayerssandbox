@@ -10,11 +10,6 @@ import { fromLonLat } from "ol/proj";
 import { pointersLayer, stateBordersLayer, TestLineLayer } from "./map-components/layers";
 import { draw, drag, modify } from "./map-components/interactions";
 import OverlayElement, { createOverlay } from "./map-components/overlay";
-import sampleGeoJSON from "./assets/sampleGeo.json"
-import {Fill, Stroke, Style} from 'ol/style';
-import {Vector as VectorSource} from 'ol/source';
-import {Vector as VectorLayer} from 'ol/layer';
-import GeoJSON from 'ol/format/GeoJSON';
 
 const styles = {
   height: "70vh",
@@ -36,6 +31,7 @@ const DemoMap = () => {
   useEffect(() => {
     const reactEl = document.getElementById("overlay")
     const MyOverlay = createOverlay(reactEl)
+    console.log("extent",TestLineLayer.getSource().getExtent())
 
     map = new Map({
       target: "ol-map",
@@ -60,11 +56,8 @@ const DemoMap = () => {
         //custom markers
         pointersLayer,
       ],
-      view: new View({
-        center: fromLonLat([14.41854, 50.073658]),
-        zoom: 18
-      })
     });
+    map.getView().fit(TestLineLayer.getSource().getExtent(), {padding:[50,50,50,50]} );
     map.addOverlay(MyOverlay)
     
     map.on("click", e=>MyOverlay.setPosition(e.coordinate))

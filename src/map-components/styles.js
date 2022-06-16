@@ -1,15 +1,14 @@
 import { Style, Fill, Icon, Stroke } from "ol/style";
 import arrow from "../assets/arrow.svg";
+import pin from "../assets/pin.svg"
 
 export const getVectorStylePoint = (feature, resolution)=>{
   const name = feature.get("name")
   const scale = resolution > 3 ? 0.5: 1
-  const rotation = name === "Point 1" ? 0.785398163 : 1.57079633
   return new Style({
     image: new Icon({
-      src: arrow,
+      src: pin,
       scale,
-      rotation
     })
   });
 }
@@ -20,11 +19,34 @@ export const vectorStyleStroke = new Style({
   })
 });
 
-export const getLineStringStyle =(_,resolution) => {
-  return  new Style({
-    stroke: new Stroke({
-      color: 'green',
-      width: resolution > 1.5 ? 3: 12,
-    }),
-  });
+export const getLineStringStyle =(feature,resolution) => {
+  const speed = feature.get("speed")
+  const type = feature.getGeometry().getType()
+  const COLORS = {
+    1:"yellow",
+    2:"orange",
+    3:"red"
+  }
+  if (type === "LineString") {
+    return  new Style({
+      stroke: new Stroke({
+        color: COLORS[speed],
+        width: resolution > 1.5 ? 3: 12,
+      }),
+    });
+  } else if (type === "Point") {
+    const rotation = feature.get("rotation")
+    const scale = resolution > 1.5 ? 0.4 : resolution > 0.8 ? 0.7 : 1
+
+    if(resolution > 2.5) return null
+
+    return new Style({
+      image: new Icon({
+        src: arrow,
+        scale,
+        rotation,
+        color:COLORS[speed]
+      })
+    });
+  }
 }
