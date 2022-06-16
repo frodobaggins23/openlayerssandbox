@@ -31,7 +31,6 @@ const DemoMap = () => {
   useEffect(() => {
     const reactEl = document.getElementById("overlay")
     const MyOverlay = createOverlay(reactEl)
-    console.log("extent",TestLineLayer.getSource().getExtent())
 
     map = new Map({
       target: "ol-map",
@@ -60,7 +59,22 @@ const DemoMap = () => {
     map.getView().fit(TestLineLayer.getSource().getExtent(), {padding:[50,50,50,50]} );
     map.addOverlay(MyOverlay)
     
-    map.on("click", e=>MyOverlay.setPosition(e.coordinate))
+    // todo tidy this up a little bit
+    map.on("pointermove", evt => {
+      const [feature] = map.getFeaturesAtPixel(evt.pixel,{layerFilter:(layer)=> layer === TestLineLayer})
+
+      if(feature) {
+        if(feature.getGeometry().getType() === "Point") {
+          const speed = feature.get("speed")
+          const rotation = feature.get("rotation")
+          document.getElementById("overlay-speed").innerText=speed
+          document.getElementById("overlay-rotation").innerText=rotation
+          MyOverlay.setPosition(evt.coordinate)
+        } 
+      } else {
+        MyOverlay.setPosition(undefined)
+      }
+    })
     
   }, []);
 
