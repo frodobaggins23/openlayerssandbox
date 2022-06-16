@@ -2,7 +2,18 @@ import Feature  from "ol/Feature";
 import GeoJSON from "ol/format/GeoJSON";
 import Point from "ol/geom/Point";
 import VectorSource from "ol/source/Vector";
-import { Style, Stroke, Fill } from "ol/style";
+import sampleLinestringJSON from "../assets/sampleGeo.json"
+
+export const MAP_SRID_ID = '3857';
+export const DATA_SRID_ID = '4326';
+export const transformOptions = {
+  dataProjection: `EPSG:${DATA_SRID_ID}`,
+  featureProjection: `EPSG:${MAP_SRID_ID}`,
+};
+
+export const LineStringSource = new VectorSource({
+  features: new GeoJSON().readFeatures(sampleLinestringJSON,transformOptions),
+});
 
 //for rendering/drawing vectors over map
 export const countriesSource = new VectorSource({

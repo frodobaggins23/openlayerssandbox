@@ -3,13 +3,13 @@ import Translate from "ol/interaction/Translate";
 import Modify from "ol/interaction/Modify";
 
 import { markersSource } from "./sources";
-import { vectorStylePoint } from "./pointers";
+import { getVectorStylePoint } from "./styles";
 import { pointersLayer } from "./layers";
 
 export const draw = new Draw({
   type: "Point",
   source: markersSource,
-  style: vectorStylePoint
+  style: getVectorStylePoint
 });
 
 draw.on("drawend", (e) => {

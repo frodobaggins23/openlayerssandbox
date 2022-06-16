@@ -7,8 +7,14 @@ import TileImage from "ol/source/TileImage";
 import { fromLonLat } from "ol/proj";
 
 //import components
-import { pointersLayer, stateBordersLayer } from "./map-components/layers";
+import { pointersLayer, stateBordersLayer, TestLineLayer } from "./map-components/layers";
 import { draw, drag, modify } from "./map-components/interactions";
+import OverlayElement, { createOverlay } from "./map-components/overlay";
+import sampleGeoJSON from "./assets/sampleGeo.json"
+import {Fill, Stroke, Style} from 'ol/style';
+import {Vector as VectorSource} from 'ol/source';
+import {Vector as VectorLayer} from 'ol/layer';
+import GeoJSON from 'ol/format/GeoJSON';
 
 const styles = {
   height: "70vh",
@@ -17,8 +23,20 @@ const styles = {
 
 let map;
 
+export const MAP_SRID_ID = '3857';
+export const DATA_SRID_ID = '4326';
+export const transformOptions = {
+  dataProjection: `EPSG:${DATA_SRID_ID}`,
+  featureProjection: `EPSG:${MAP_SRID_ID}`,
+};
+
+
+
 const DemoMap = () => {
   useEffect(() => {
+    const reactEl = document.getElementById("overlay")
+    const MyOverlay = createOverlay(reactEl)
+
     map = new Map({
       target: "ol-map",
       layers: [
@@ -35,21 +53,28 @@ const DemoMap = () => {
             url: "http://mt1.google.com/vt/lyrs=s&hl=pl&&x={x}&y={y}&z={z}"
           })
         }),
+        // test LineString 
+        TestLineLayer,
         //add state borders
         stateBordersLayer,
         //custom markers
-        pointersLayer
+        pointersLayer,
       ],
       view: new View({
         center: fromLonLat([14.41854, 50.073658]),
         zoom: 18
       })
     });
+    map.addOverlay(MyOverlay)
+    
+    map.on("click", e=>MyOverlay.setPosition(e.coordinate))
+    
   }, []);
 
 
 
   return (
+    <>
     <div id="ol-map" style={styles}>
       <button
         onClick={() => {
@@ -68,6 +93,8 @@ const DemoMap = () => {
         Drag
       </button>
     </div>
+    <OverlayElement/>
+    </>
   );
 };
 
