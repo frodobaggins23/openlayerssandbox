@@ -2,7 +2,7 @@ import VectorLayer from "ol/layer/Vector";
 
 import { countriesSource, markersSource } from "./sources";
 import { vectorStyleStroke, getVectorStylePoint, getLineStringStyle } from "./styles";
-import { LineStringSource } from "./sources";
+import { LineStringSource, LinePointSource } from "./sources";
 
 export const pointersLayer = new VectorLayer({
   source: markersSource,
@@ -16,5 +16,10 @@ export const stateBordersLayer = new VectorLayer({
 
 export const TestLineLayer = new VectorLayer({
   source: LineStringSource,
+  style: getLineStringStyle
+});
+
+export const TestLineLayerPoints = new VectorLayer({
+  source: LinePointSource,
   style: getLineStringStyle
 });

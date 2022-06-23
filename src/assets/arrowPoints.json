@@ -1,0 +1,84 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"Step1-start",
+        "rotation": 0.505398,
+        "speed":1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+            14.419324994087217,
+            50.075564517394625
+          ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"Step2-start",
+        "rotation": 2.26892803,
+        "speed":2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": 
+          [
+            14.420135021209717,
+            50.075468120051674
+          ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"Step3-start",
+        "rotation": 1.10352986,
+        "speed":3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": 
+          [
+            14.419212341308594,
+            50.074796776038575
+          ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"Step4-start",
+        "rotation": 1.87079633,
+        "speed":2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": 
+          [
+            14.419679045677187,
+            50.074497250292644
+          ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"Step5-start",
+        "rotation": 1.57079633,
+        "speed":1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": 
+          [
+            14.419373273849487,
+            50.07411509403832
+          ]
+      }
+    }
+  ]
+}

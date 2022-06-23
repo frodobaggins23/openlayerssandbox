@@ -1,7 +1,8 @@
 import Feature  from "ol/Feature";
 import GeoJSON from "ol/format/GeoJSON";
 import Point from "ol/geom/Point";
-import sampleLinestringJSON from "../assets/sampleGeo.json"
+import linestringJSON from "../assets/linestring.json"
+import arrowPointsJSON from "../assets/arrowPoints.json"
 
 const MAP_SRID_ID = '3857';
 const DATA_SRID_ID = '4326';
@@ -11,7 +12,12 @@ export const transformOptions = {
   featureProjection: `EPSG:${MAP_SRID_ID}`,
 };
 
-export const lineStringFeaturesCollection = new GeoJSON().readFeatures(sampleLinestringJSON,transformOptions)
+export const lineStringGeometry = new Feature({
+  name:"sampleLinestring",
+  geometry: new GeoJSON().readGeometry(linestringJSON,transformOptions)
+})
+
+export const linePoints = new GeoJSON().readFeatures(arrowPointsJSON,transformOptions)
 
 export const marker1 = new Feature({
     id:1,

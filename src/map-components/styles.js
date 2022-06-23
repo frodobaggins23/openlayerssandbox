@@ -20,17 +20,12 @@ export const vectorStyleStroke = new Style({
 });
 
 export const getLineStringStyle =(feature,resolution) => {
-  const speed = feature.get("speed")
   const type = feature.getGeometry().getType()
-  const COLORS = {
-    1:"yellow",
-    2:"orange",
-    3:"red"
-  }
+
   if (type === "LineString") {
     return  new Style({
       stroke: new Stroke({
-        color: COLORS[speed],
+        color: "yellow",
         width: resolution > 1.5 ? 3: 12,
       }),
     });
@@ -45,7 +40,6 @@ export const getLineStringStyle =(feature,resolution) => {
         src: arrow,
         scale,
         rotation,
-        color:COLORS[speed]
       })
     });
   }

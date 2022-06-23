@@ -1,10 +1,14 @@
 import VectorSource from "ol/source/Vector";
 import GeoJSON from "ol/format/GeoJSON";
-import { marker1, marker2, lineStringFeaturesCollection } from "./features";
+import { marker1, marker2, lineStringGeometry, linePoints } from "./features";
 
 
 export const LineStringSource = new VectorSource({
-  features: lineStringFeaturesCollection,
+  features: [lineStringGeometry],
+});
+
+export const LinePointSource = new VectorSource({
+  features: linePoints,
 });
 
 //for rendering/drawing vectors over map

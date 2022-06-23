@@ -7,7 +7,7 @@ import TileImage from "ol/source/TileImage";
 import { fromLonLat } from "ol/proj";
 
 //import components
-import { pointersLayer, stateBordersLayer, TestLineLayer } from "./map-components/layers";
+import { pointersLayer, stateBordersLayer, TestLineLayer, TestLineLayerPoints } from "./map-components/layers";
 import { draw, drag, modify } from "./map-components/interactions";
 import OverlayElement, { createOverlay } from "./map-components/overlay";
 
@@ -50,18 +50,19 @@ const DemoMap = () => {
         }),
         // test LineString 
         TestLineLayer,
+        TestLineLayerPoints,
         //add state borders
         stateBordersLayer,
         //custom markers
         pointersLayer,
       ],
     });
-    map.getView().fit(TestLineLayer.getSource().getExtent(), {padding:[50,50,50,50]} );
+    map.getView().fit(TestLineLayerPoints.getSource().getExtent(), {padding:[50,50,50,50]} );
     map.addOverlay(MyOverlay)
     
     // todo tidy this up a little bit
     map.on("pointermove", evt => {
-      const [feature] = map.getFeaturesAtPixel(evt.pixel,{layerFilter:(layer)=> layer === TestLineLayer})
+      const [feature] = map.getFeaturesAtPixel(evt.pixel,{layerFilter:(layer)=> layer === TestLineLayerPoints})
 
       if(feature) {
         if(feature.getGeometry().getType() === "Point") {
